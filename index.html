@@ -1,0 +1,120 @@
+<html>
+<head>
+<title>Propeller-Technical Assessment</title>
+<style>
+.accordion_container {
+ 	width: 60%;
+	height: 60%;
+	margin: 0 auto;
+}
+.accordion_head {
+	background-color: #9E38B0;
+    color: white;
+    cursor: pointer;
+    font-family: arial;
+    font-size: 30px;
+    padding: 5%;
+	font-weight: bold;
+	border radius: 3px;
+	margin-top: 3px;
+	border-width: 0 1px 3px 1px;
+	border-style: solid;
+	border-color: #6F277D;
+}
+.accordion_head.active,.accordion_head:hover {
+    background-color: #6844B7;
+
+}
+.accordion_head:after {
+    
+    background-color: #6844B7;
+    font-weight: bold;
+    float: right;
+    margin-left: 10px;
+	border: 3px solid #4C3185;
+	
+}
+
+.accordion_body {
+	background: #FFFFFF;
+	border: 1px solid #EBEBEB;
+	padding: 0 18px;
+	text-align: justify;
+	padding: 3% 3% 3% 3%;
+	margin: 0 0 3px 0;
+	color: #5C5C5C;
+	font-family: arial;
+	font-size: 20px;
+    	
+}
+.accordion_body p{
+	
+	margin: 0px;
+}
+.plusdown{
+	float:right;
+	font-size: 30px;
+	font style: normal;
+	font-family: arial;
+	text-align: center;
+	font-weight: bold;
+}
+</style>
+</head>
+	<body>
+	<div class="accordion_container">
+		<div id="sec1" class="accordion_head"><span class="plusdown">v</span></div>
+			<div id="sec4" class="accordion_body" style="display: none;">
+			</div>
+		<div id="sec2" class="accordion_head"><span class="plusdown">v</span></div>
+			<div id="sec5" class="accordion_body" style="display: none;">
+			</div>
+		<div id="sec3" class="accordion_head"><span class="plusdown">v</span></div>
+			<div id="sec6" class="accordion_body" style="display: none;">
+			</div>
+	</div>
+	
+
+<script>
+var sect1 = document.getElementById("sec1");
+var sect2 = document.getElementById("sec2");
+var sect3 = document.getElementById("sec3");
+var sect4 = document.getElementById("sec4");
+var sect5 = document.getElementById("sec5");
+var sect6 = document.getElementById("sec6");
+var content = new XMLHttpRequest();
+ 
+content.open('GET','http://design.propcom.co.uk/buildtest/accordion-data.json')
+content.onload = function(){
+	var con = JSON.parse(content.responseText);
+	renderHTML(con);
+};
+content.send();
+
+function renderHTML(data){
+
+	sect1.insertAdjacentHTML('beforeend', data.blocks[0].heading);
+	sect2.insertAdjacentHTML('beforeend', data.blocks[1].heading);
+	sect3.insertAdjacentHTML('beforeend', data.blocks[2].heading);
+	sect4.insertAdjacentHTML('beforeend', data.blocks[0].content);
+	sect5.insertAdjacentHTML('beforeend', data.blocks[1].content);
+	sect6.insertAdjacentHTML('beforeend', data.blocks[2].content);
+	
+}</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+	
+<script>
+	$(document).ready(function(){
+		$(".accordion_head").click(function(){
+			if ($('.accordion_body').is(':visible')) {
+				$(".accordion_body").slideUp(600);
+				$(".plusdown").text('v');
+		}
+		$(this).next(".accordion_body").slideDown(600); 
+		$(this).children(".plusdown").text('˄');
+	});
+});
+</script>
+	</body>
+	
+</html>
